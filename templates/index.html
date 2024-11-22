@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+<!-- HTML inspiration from staff solutions -->
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Name (Symbol)</th>
+                <th class="text-end">Shares</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through user's portfolio and display all stocks -->
+            {% for stock in portfolio %}
+                <tr>
+                    <td class="text-start">{{stock["stock"]}} ({{stock["symbol"]}})</td>
+                    <td class="text-end">{{stock["SUM(shares)"]}}</td>
+                    <td class="text-end">{{stock["price"] | usd}}</td>
+                    <td class="text-end">{{stock["worth"] | usd}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    <!-- At foot of table, display user's cash and total (including stocks value) -->
+        <tfoot>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="3">Cash</td>
+                <td class="border-0 text-end">{{cash | usd}}</td>
+            </tr>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="3">TOTAL</td>
+                <td class="border-0 text-end">{{(cash + stocks_worth) | usd}}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
