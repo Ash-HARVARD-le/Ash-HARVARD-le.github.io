@@ -4,7 +4,7 @@
 
 <p> Do you have what it takes to become the best gambler at Harvard? I have created this interactive website that allows users to play casino-like games, such as blackjack, roulette, and a slot machine. First you are required to sign up, and you get a $100 incentive to begin gambling once logging in. If you lose it all (what a terrible gambler you are), but don't fret, because in the Account page you can deposit more money into your account and gamble larger bets! They do require you to sign up with your HUID or Credit Card Information, so they should really be used as a last resort. Additionally, you are able to update your password, delete your account, view your game statistics, and even check if you're on the leaderboard! This website is meant to be for entertainment purposes only, and the gambles are not with real money, but with Malanion dollars. Please enjoy! </p>
 
-<a href="https://ash-harvard-le-github-bcqtataue-ash-harvard-les-projects.vercel.app"> Click Here to go to website as well. </a>
+<a href="https://youtu.be/V8NA9QzBmHE?si=kKjpfwW0AMkDqURW"> Click Here to view the website in action! </a>
 
 <h3> Games: </h3>
 <ul>
