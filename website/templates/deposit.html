@@ -1,0 +1,214 @@
+{% extends "layout.html" %} {% block title %} Deposit {% endblock %} {% block
+main %}
+<h1>Get ready to deposit some 🤑🤑🤑!</h1>
+<br />
+
+<!-- Dropdown menu to select deposit type -->
+<div class="dropdown-container">
+  <label for="deposit-type">Choose How You Will Deposit:</label>
+  <select id="deposit-type" name="deposit-type" onchange="toggleFormFields()">
+    <!-- Invisible default option -->
+    <option value="" disabled selected>Options</option>
+    <option value="credit">Credit</option>
+    <option value="crimson-cash">Crimson Cash</option>
+  </select>
+</div>
+
+<br />
+<br />
+
+<!-- Credit Card Form (Initially Hidden) -->
+<form action="/credit-deposit" method="POST">
+  <div id="credit-form" class="deposit-form" style="display: none">
+    <h3>Credit Card Details</h3>
+    <br />
+
+    <!-- Credit card number input with a "Show/Hide" button -->
+    <label for="credit-card-number"
+      >Credit Card Number (No Spaces/Dashes):</label
+    >
+    <div class="input-container">
+      <input
+        type="password"
+        class="form-control mx-auto w-auto"
+        name="credit-card-number"
+        required
+        minlength="13"
+        maxlength="16"
+        placeholder="Credit Card Number"
+        id="credit-card-number"
+      />
+      <button
+        type="button"
+        class="show-hide-btn"
+        data-target="credit-card-number"
+        onclick="toggleVisibility(this)"
+      >
+        Show
+      </button>
+    </div>
+    <br />
+
+    <!-- Expiration date input with validation for MM/YY format -->
+    <label for="expiration-date">Expiration Date:</label>
+    <div class="input-container">
+      <input
+        type="text"
+        class="form-control mx-auto w-auto"
+        name="expiration-date"
+        required
+        placeholder="MM/YY"
+        pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$"
+        minlength="5"
+        maxlength="5"
+      />
+    </div>
+    <br />
+
+    <!-- CVV input with a "Show/Hide" button -->
+    <label for="cvv">CVV:</label>
+    <div class="input-container">
+      <input
+        type="password"
+        class="form-control mx-auto w-auto"
+        name="cvv"
+        required
+        minlength="3"
+        maxlength="4"
+        placeholder="CVV"
+        id="cvv"
+      />
+      <button
+        type="button"
+        class="show-hide-btn"
+        data-target="cvv"
+        onclick="toggleVisibility(this)"
+      >
+        Show
+      </button>
+    </div>
+    <br />
+
+    <!-- Deposit amount input with a limit of $10,000 -->
+    <label for="credit-amount">Deposite Amount (Max $10,000):</label>
+    <input
+      type="number"
+      class="form-control mx-auto w-auto"
+      name="credit-amount"
+      required
+      placeholder="Amount"
+      step="0.01"
+      min="0"
+      max="10000"
+    />
+    <br />
+    <button type="submit" class="btn btn-success">
+      Deposit With Credit Card
+    </button>
+  </div>
+</form>
+
+<!-- Crimson Cash Form (Initially Hidden) -->
+<form action="/huid-deposit" method="POST">
+  <div id="crimson-cash-form" class="deposit-form" style="display: none">
+    <h3>Crimson Cash Details</h3>
+    <br />
+
+    <!-- HUID input with a "Show/Hide" button -->
+    <label for="huid">HUID (Harvard University ID):</label>
+    <div class="input-container">
+      <input
+        type="password"
+        class="form-control mx-auto w-auto"
+        name="huid"
+        required
+        minlength="8"
+        maxlength="8"
+        placeholder="HUID (8 digits)"
+        id="huid"
+      />
+      <button
+        type="button"
+        class="show-hide-btn"
+        data-target="huid"
+        onclick="toggleVisibility(this)"
+      >
+        Show
+      </button>
+    </div>
+
+    <br />
+
+    <!-- Deposit amount input with a limit of $1,000 -->
+    <label for="huid-amount">Deposite Amount (Max $1,000):</label>
+    <input
+      type="number"
+      class="form-control mx-auto w-auto"
+      name="huid-amount"
+      required
+      placeholder="Amount"
+      step="0.01"
+      min="0"
+      max="1000"
+    />
+    <br />
+    <button
+      type="submit"
+      class="btn btn-success"
+      data-huid-locked="{{ huid_locked | tojson }}"
+      onclick="return confirmHUID(this);"
+    >
+      Deposit With Crimson Cash
+    </button>
+  </div>
+</form>
+
+<script>
+  // JavaScript function to toggle between the credit card and crimson cash forms
+  function toggleFormFields() {
+    var depositType = document.getElementById("deposit-type").value;
+    var creditForm = document.getElementById("credit-form");
+    var crimsonCashForm = document.getElementById("crimson-cash-form");
+
+    // Hide both forms initially
+    creditForm.style.display = "none";
+    crimsonCashForm.style.display = "none";
+
+    // Show the appropriate form based on the selected option
+    if (depositType === "credit") {
+      creditForm.style.display = "block";
+    } else if (depositType === "crimson-cash") {
+      crimsonCashForm.style.display = "block";
+    }
+  }
+
+  // Toggles the visibility of password fields between "password" and "text"
+  function toggleVisibility(button) {
+    var fieldId = button.getAttribute("data-target");
+    var field = document.getElementById(fieldId);
+    var type = field.type;
+
+    // If the field is currently masked (type="password"), show the value
+    if (type === "password") {
+      field.type = "text"; // Show the value
+      button.textContent = "Hide"; // Change the button text to "Hide"
+    } else {
+      field.type = "password"; // Mask the value again
+      button.textContent = "Show"; // Change the button text to "Show"
+    }
+  }
+
+  // Confirms the HUID before submission, it can't be changed afterwards that's why this asks for a confirmation from the user
+  function confirmHUID(button) {
+    var isLocked = button.getAttribute("data-huid-locked") === "true";
+    // Show different confirmation message based on huid_locked value (meaning if they already dealt with this message before, they won't see it again)
+    if (!isLocked) {
+      var result = confirm(
+        "Are you sure this is your HUID? Your HUID cannot be changed after this deposit"
+      );
+      return result;
+    }
+  }
+</script>
+
+{% endblock %}

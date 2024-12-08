@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block title %} {{ current_user.username }}'s
+Account {% endblock %} {% block main %}
+
+<h1>Hello, {{ current_user.username }}!</h1>
+<br />
+
+<!-- Greet and Display username and their cash -->
+<h4>Cash Balance: <b>${{ current_user.cash }}</b></h4>
+<br />
+
+<h2>Account Management</h2>
+<br />
+
+<!-- Section for navigating to the update password page -->
+<div>
+  <h5>Click to change your password:</h5>
+  <a href="/update_password" class="btn btn-primary">Update Password</a>
+</div>
+<br />
+
+<!-- Section for navigating to the deposit page -->
+<div>
+  <h5>Click to add funds to your account:</h5>
+  <a href="/deposit" class="btn btn-success">Deposit Malanion Dollars</a>
+</div>
+<br />
+
+<!-- Section for deleting account -->
+<div>
+  <h5>Click to delete your account:</h5>
+  <!-- Dangerous action, so javascript below warns user if they want to actually delete their account -->
+  <form id="delete-form" action="/delete" method="POST" style="display: inline">
+    <button
+      type="submit"
+      class="btn btn-danger"
+      onclick="return confirmDelete();"
+    >
+      Delete Account
+    </button>
+  </form>
+</div>
+
+<script>
+  function confirmDelete() {
+    // Show a confirmation dialog
+    var result = confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    // Return the result of the confirmation. If user clicks "Cancel", it will not delete account
+    return result;
+  }
+</script>
+
+{% endblock %}

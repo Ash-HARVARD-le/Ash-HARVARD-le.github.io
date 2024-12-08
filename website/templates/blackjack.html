@@ -1,0 +1,125 @@
+{% extends "layout.html" %} {% block title %} Blackjack {% endblock %} {% block
+main %}
+<!-- Game card display: Blackjack -->
+<div class="d-flex justify-content-around">
+  <div class="game-card">
+    <a href="/blackjack">
+      <img src="/static/blackjack.jpg" alt="Blackjack" class="game-image" />
+    </a>
+  </div>
+</div>
+
+<!-- Display player's cards if they have some -->
+{% if player_cards %}
+<h2>Player's Cards</h2>
+<div id="player-cards">
+  <!-- Show all cards -->
+  {% for card in player_cards %}
+  <img src="{{ card.image }}" alt="Player Card" width="100" />
+  {% endfor %}
+</div>
+{% endif %}
+<br />
+
+<!-- Display dealer's cards (except the first one) -->
+{% for card in dealer_cards %} {% if loop.index == 1 and
+session['dealer_first_card_face_down'] %}
+<h2>Dealer's Cards</h2>
+<!-- Display the back image for the first card (face down) -->
+<img class="card-image" src="{{ dealer_back_url }}" alt="Face Down Card" />
+{% else %}
+<!-- Display the actual card for the second card or after a hit -->
+<img class="card-image" src="{{ card.image }}" alt="Card" />
+{% endif %} {% endfor %}
+<br /><br />
+
+<!-- Betting form (only show if no cards are in session), so they can't bet in the middle of a game -->
+{% if not player_cards %}
+<h1>Your Cash: ${{ current_user.cash }}</h1>
+<br />
+
+<form method="POST" action="{{ url_for('views.blackjack') }}">
+  <input
+    class="form-control mx-auto"
+    type="number"
+    name="bet"
+    id="betInput"
+    placeholder="Enter Bet Amount (Max: {{current_user.cash}})"
+    required
+    min="1"
+    step="1"
+    max="{{current_user.cash}}"
+  />
+  <br />
+  <button class="btn btn-success" type="submit" name="action" value="bet">
+    Place Bet
+  </button>
+</form>
+<br />
+{% endif %}
+
+<!-- Hit and Stand buttons (only show if the game is in progress) -->
+{% if player_cards %}
+<form method="POST" action="{{ url_for('views.blackjack') }}">
+  <button class="btn btn-warning" type="submit" name="action" value="hit">
+    Hit
+  </button>
+  <button class="btn btn-info" type="submit" name="action" value="stand">
+    Stand
+  </button>
+</form>
+{% endif %}
+
+<!-- Display result message if available -->
+{% if result %}
+<h2>{{ result }}</h2>
+<br />
+<!-- Display the cards of the last game to prove it's not rigged -->
+<h2>Last Game Results:</h2>
+<br />
+{% endif %} {% if session['final_player_cards'] %}
+<h3>Player's Previous Cards</h3>
+<div id="final-player-cards">
+  {% for card in session['final_player_cards'] %}
+  <img src="{{ card.image }}" alt="Final Player Card" width="100" />
+  {% endfor %}
+</div>
+<br />
+{% endif %} {% if session['final_dealer_cards'] %}
+<h3>Dealer's Previous Cards</h3>
+<div id="final-dealer-cards">
+  {% for card in session['final_dealer_cards'] %}
+  <img src="{{ card.image }}" alt="Final Dealer Card" width="100" />
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- JavaScript for adjusting the bet input width dynamically -->
+<script>
+  const betInput = document.getElementById("betInput");
+
+  // Function to adjust the width based on the placeholder text
+  function adjustInputWidth() {
+    const placeholder = betInput.placeholder;
+
+    // Create a temporary element to calculate the placeholder's width
+    const tempSpan = document.createElement("span");
+    tempSpan.style.visibility = "hidden";
+    tempSpan.style.whiteSpace = "nowrap";
+    tempSpan.style.fontSize = getComputedStyle(betInput).fontSize; // Match input font size
+    tempSpan.style.fontFamily = getComputedStyle(betInput).fontFamily; // Match input font family
+    tempSpan.textContent = placeholder;
+
+    document.body.appendChild(tempSpan);
+    const width = tempSpan.offsetWidth + 40; // Add some padding
+    document.body.removeChild(tempSpan);
+
+    // Set the input width
+    betInput.style.width = `${width}px`;
+  }
+
+  // Call the function initially
+  adjustInputWidth();
+</script>
+
+{% endblock %}

@@ -1,0 +1,270 @@
+/* Size for logo */
+nav .navbar-logo {
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+/* Colors for logo */
+nav .navbar-logo .blue {
+  color: #537fbe;
+}
+nav .navbar-logo .red {
+  color: #d32f2f;
+}
+nav .navbar-logo .green {
+  color: #388e3c;
+}
+
+/* AMOGUS */
+.error-img {
+  height: auto;
+  width: 50%;
+  max-width: 100%;
+}
+
+/* Container for the game cards */
+.d-flex {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Style for each game card */
+.game-card {
+  flex: 1 1 30%; /* Allow cards to grow and shrink, with a base width of 30% */
+  max-width: 30%; /* Set a maximum width for the cards */
+  margin: 10px;
+  text-align: center;
+}
+
+/* Style for the game images */
+.game-image {
+  width: 100%; /* Make the image take the full width of the card */
+  height: auto; /* Maintain the aspect ratio */
+  max-height: 100%; /* Set a maximum height for the images */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+/* Set the background color for the entire body */
+body {
+  background-color: #006838; /* A casino-like green color */
+  color: white;
+}
+
+/* Style for the footer text */
+footer {
+  color: white; /* Change footer text color to white */
+  padding: 10px 0; /* Add some padding for better spacing */
+}
+
+/* Deposit vs HUID */
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+label {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+select {
+  font-size: 16px;
+  padding: 5px;
+}
+
+a {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits the color from the parent element */
+}
+
+.card-image {
+  width: 100px;
+  height: 140px;
+}
+
+/* LEADERBOARD */
+.leaderboard-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  position: relative; /* Add this to position the earnings */
+}
+
+.leaderboard-username {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.leaderboard-earnings {
+  font-size: 20px;
+  color: black;
+  position: absolute; /* Position earnings absolutely */
+  right: 10px; /* Adjust this value as needed for spacing */
+}
+
+.leaderboard-item:last-child {
+  margin-bottom: 0;
+}
+
+.leaderboard-rank {
+  font-size: 20px;
+  margin-right: 10px; /* Adjust this value for desired spacing */
+}
+
+/* 1st Place Gambler */
+.rank-gold {
+  background-color: #b59410;
+}
+
+.rank-gold:hover {
+  background-color: #a57f20;
+}
+
+/* 2nd Place Gambler */
+.rank-silver {
+  background-color: #71706e;
+}
+
+.rank-silver:hover {
+  background-color: #666664; /* Darker silver */
+}
+
+/* 3rd Place Gambler */
+.rank-bronze {
+  background-color: #a56c32;
+}
+
+.rank-bronze:hover {
+  background-color: #804a00; /* Darker bronze */
+}
+
+/* Mid Gamblers */
+.rank-default {
+  background-color: #c70000;
+}
+
+.rank-default:hover {
+  background-color: #7b1414;
+}
+
+.leaderboard-header {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between left and right */
+  align-items: center; /* Center items vertically */
+  padding: 10px 0; /* Optional: Add some padding for spacing */
+}
+
+.header-left {
+  flex: 1; /* Allow left header to take available space */
+  margin-left: 300px;
+}
+
+.header-right {
+  flex: 1; /* Allow right header to take available space */
+  text-align: right; /* Align text to the right */
+  margin-right: 370px;
+}
+
+.records-image {
+  width: 35%;
+}
+
+/* Game Stats */
+
+/* Styling for the container holding game stats */
+.game-stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Styling for each game's section */
+.game-stats-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1%;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  width: 30%;
+  background-color: #388e3c;
+}
+
+/* Styling for the game icons */
+.game-icon {
+  margin-left: 5%;
+  width: 90%;
+}
+
+/* Add margin to the text elements */
+.game-stat-label {
+  margin-top: 10px;
+}
+
+.game-stats-item p {
+  margin-top: 5px;
+}
+
+/* SLOT MACHINE */
+
+/* MOST OF THE CSS IN THIS SECTION IS FROM MY GOAT (Check out important.txt) */
+.slot-machine-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slot-machine {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: white;
+  border: 5px solid black;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.5s ease;
+}
+
+.reel {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.reel img {
+  width: 125px;
+  height: 125px;
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+#slots_message {
+  position: static;
+  font-size: 1.5em;
+  color: white;
+  font-weight: bold;
+}
+
+.loss {
+  background-color: red;
+}
+
+.win {
+  background-color: greenyellow;
+}
+/* Slot Machine End */

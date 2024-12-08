@@ -1,0 +1,46 @@
+{% extends "layout.html" %} {% block title %} Slots {% endblock %} {% block main
+%}
+<!-- Game Image and Play Button Section -->
+<div class="d-flex justify-content-around">
+  <div class="game-card">
+    <!-- Slots Game Image -->
+    <a href="/slots">
+      <img src="/static/slots.jpg" alt="Slots" class="game-image" />
+    </a>
+  </div>
+</div>
+
+<br />
+
+<!-- Slot Machine Container -->
+<div class="slot-machine-container">
+  <!-- Slot Machine Reel Layout -->
+  <div class="slot-machine">
+    <div class="reel" id="reel1"></div>
+    <div class="reel" id="reel2"></div>
+    <div class="reel" id="reel3"></div>
+  </div>
+
+  <br />
+
+  <!-- Message Area for Slot Results -->
+  <div id="slots_message"></div>
+  <br />
+
+  <!-- Display Current User Cash -->
+  <h3 id="current-cash">Your Cash: ${{ current_user.cash }}</h3>
+  <br />
+
+  <!-- Display Spin Cost -->
+  <h3 id="spin-cost">Cost Per Spin: ${{ spin_cost }}</h3>
+  <br />
+
+  <!-- Spin Button (Triggers Bet and Spin) -->
+  <button id="handle" name="bet" class="btn btn-success">
+    Place Bet & Spin
+  </button>
+</div>
+
+<!-- Link to Custom JavaScript for Slots Game -->
+<script src="/static/slots.js"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block title %} Roulette {% endblock %} {% block
+main %}
+<!-- Mention the author of the roullete game -->
+<meta name="author" content="ozboware & Ash" />
+
+<!-- Game Card for Roulette -->
+<div class="d-flex justify-content-around">
+  <div class="game-card">
+    <a href="/roulette">
+      <img src="/static/roulette.jpg" alt="Roulette" class="game-image" />
+    </a>
+  </div>
+</div>
+
+<!-- Container for Game with Bank Value -->
+<div id="game-container" data-bank="{{ current_user.cash }}"></div>
+
+<!-- Link to Custom CSS for the Game -->
+<link href="/static/roulette.css" rel="stylesheet" />
+
+<!-- Custom JavaScript -->
+<script src="/static/roulette.js">
+   // Retrieve and log the bank value from the data attribute
+  const bankValue = document.getElementById('game-container').dataset.bank;
+      console.log('Bank Value:', bankValue);
+</script>
+{% endblock %}

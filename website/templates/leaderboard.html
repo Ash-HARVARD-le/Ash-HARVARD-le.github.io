@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block title %}Leaderboard{% endblock %} {% block
+main %}
+
+<!-- Header -->
+<h1>Leaderboard</h1>
+<br />
+<h4>CHECK OUT WHO'S THE BEST GAMBLER AT HARVARD</h4>
+<br />
+
+<!-- Description for the leaderboard elements -->
+<div class="leaderboard-header">
+  <div class="header-left">
+    <!-- Column for user rank and username -->
+    <h4>Rank. Username</h4>
+  </div>
+  <div class="header-right">
+    <!-- Column for the user's earnings -->
+    <h4>Gambling Profit</h4>
+  </div>
+</div>
+
+<!-- Actual Leaderboard -->
+<div class="leaderboard-container">
+  <!-- Loop through the list of users and their earnings -->
+  {% if users %} {% for user, total_earnings in users %}
+  <div
+    class="leaderboard-item {% if loop.index == 1 %}rank-gold{% elif loop.index == 2 %}rank-silver{% elif loop.index == 3 %}rank-bronze{% else %}rank-default{% endif %}"
+  >
+    <!-- Display the rank, username, and gambling earnings -->
+    <div class="leaderboard-rank">{{ loop.index }}.</div>
+    <div class="leaderboard-username">{{ user.username }}</div>
+    <div class="leaderboard-earnings">
+      ${{ "{:,.2f}".format(total_earnings) }}
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <!-- Won't actually show since the current user will always be on the leaderboard, but in case that doesn't happen, display the following -->
+  <p class="no-users">No users available in the leaderboard yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

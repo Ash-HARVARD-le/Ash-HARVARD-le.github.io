@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block main
+%}
+<!-- Welcome -->
+<h1 class="display-4 text-center mb-4">Welcome to Harvard Gambling Mania!</h1>
+
+<!-- GAME CHOICES -->
+<h3 class="text-center mb-4">
+  Click any of these images and start playing now!
+</h3>
+
+<!-- IMAGES OF DIFFERENT GAMES AND THEY'RE CLICKABLE -->
+<div class="d-flex justify-content-around">
+  <div class="game-card">
+    <a href="/blackjack">
+      <img src="/static/blackjack.jpg" alt="Blackjack" class="game-image" />
+    </a>
+  </div>
+  <div class="game-card">
+    <a href="/slots">
+      <img src="/static/slots.jpg" alt="Slots" class="game-image" />
+    </a>
+  </div>
+  <div class="game-card">
+    <a href="/roulette">
+      <img src="/static/roulette.jpg" alt="Roulette" class="game-image" />
+    </a>
+  </div>
+</div>
+{% endblock %}

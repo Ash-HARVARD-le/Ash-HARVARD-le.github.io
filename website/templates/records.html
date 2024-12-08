@@ -1,0 +1,128 @@
+{% extends "layout.html" %} {% block title %} {{ current_user.username }}'s
+Records {% endblock %} {% block main %}
+
+<!-- Header -->
+<h1>Welcome to your Records {{current_user.username}}!</h1>
+<br />
+
+<h6>
+  On this page you can view PRACTICALLY EVERYTHING about your gambling journey
+  (it's not an addiction).
+</h6>
+<br />
+
+<!-- Container for displaying user records -->
+<div class="records-container">
+  <!-- Some gambling image but also shows all games played  -->
+  <img src="/static/playing_games.jpg" alt="Gambling" class="records-image" />
+  <br /><br />
+  <h3>Total Gambles Made: {{ total_games_played }}</h3>
+
+  <br /><br />
+
+  <!-- Displaying Total Earnings and Biggest Win -->
+  <img src="/static/happy_money.png" alt="Happy Emoji" class="records-image" />
+  <br /><br />
+  <h3>$$$ Made From Gambling: ${{ "{:,.2f}".format(total_earnings) }}</h3>
+  <h3>Largest Bet Won: ${{ "{:,.2f}".format(biggest_win) }}</h3>
+
+  <br /><br />
+
+  <!-- Displaying Total Losses and Biggest Loss -->
+  <img src="/static/sad_money.png" alt="Sad Emoji" class="records-image" />
+  <br /><br /><br />
+  <h3>$$$ Lost From Gambling: ${{ "{:,.2f}".format(total_losses) }}</h3>
+  <h3>Largest Bet Lost: ${{ "{:,.2f}".format(biggest_loss) }}</h3>
+
+  <br /><br /><br />
+
+  <!-- Favorite Game Section -->
+  <h3>Favorite Game: {{ favorite_game[0] if favorite_game else 'None' }}</h3>
+  {% if favorite_game %}
+  <img
+    src="/static/{{ favorite_game[0]|lower }}.jpg"
+    alt="{{ favorite_game[0] }}"
+    class="records-image"
+  />
+  {% endif %}
+  <br />
+  <br />
+
+  <!-- Least Favorite Game Section -->
+  <h3>
+    Least Favorite Game: {{ least_favorite_game[0] if least_favorite_game else
+    'None' }}
+  </h3>
+  {% if least_favorite_game %}
+  <img
+    src="/static/{{ least_favorite_game[0]|lower }}.jpg"
+    alt="{{ least_favorite_game[0] }}"
+    class="records-image"
+  />
+  {% endif %}
+
+  <br /><br />
+
+  <!-- Luckiest Game Section -->
+  <h3>
+    Luckiest Game: {{ luckiest_game[0] if luckiest_game else 'None' }} (Win %:
+    {{ luckiest_game[1] if luckiest_game else '0.00' }}%)
+  </h3>
+  {% if luckiest_game %}
+  <img
+    src="/static/{{ luckiest_game[0]|lower }}.jpg"
+    alt="{{ luckiest_game[0] }}"
+    class="records-image"
+  />
+  {% endif %}
+
+  <br />
+  <br />
+
+  <!-- Unluckiest Game Section -->
+  <h3>
+    Unluckiest Game: {{ unluckiest_game[0] if unluckiest_game else 'None' }}
+    (Loss %: {{ unluckiest_game[1] if unluckiest_game else '0.00' }}%)
+  </h3>
+  {% if unluckiest_game %}
+  <img
+    src="/static/{{ unluckiest_game[0]|lower }}.jpg"
+    alt="{{ unluckiest_game[0] }}"
+    class="records-image"
+  />
+  {% endif %}
+
+  <br /><br />
+
+  <!-- Individual Game Stats Section -->
+  <h3>Game Stats:</h3>
+  <div class="game-stats-container">
+    <!-- Blackjack Section -->
+    <div class="game-stats-item">
+      <img src="/static/blackjack.jpg" alt="Blackjack" class="game-icon" />
+      <h4 class="game-stat-label">Blackjack</h4>
+      <p>Wins: {{ game_stats['Blackjack'].games_won }}</p>
+      <p>Pushes: {{ game_stats['Blackjack'].games_tied }}</p>
+      <p>Losses: {{ game_stats['Blackjack'].games_lost }}</p>
+    </div>
+
+    <!-- Roulette Section -->
+    <div class="game-stats-item">
+      <img src="/static/roulette.jpg" alt="Roulette" class="game-icon" />
+      <h4 class="game-stat-label">Roulette</h4>
+      <p>Wins: {{ game_stats['Roulette'].games_won }}</p>
+      <p>Tied: {{ game_stats['Roulette'].games_tied }}</p>
+      <p>Losses: {{ game_stats['Roulette'].games_lost }}</p>
+    </div>
+
+    <!-- Slots Section -->
+    <div class="game-stats-item">
+      <img src="/static/slots.jpg" alt="Slots" class="game-icon" />
+      <h4 class="game-stat-label">Slots</h4>
+      <p>Wins: {{ game_stats['Slots'].games_won }}</p>
+      <p>Losses: {{ game_stats['Slots'].games_lost }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
